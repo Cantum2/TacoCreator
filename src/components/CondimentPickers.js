@@ -3,7 +3,6 @@ import styled from "styled-components";
 import Picker from "./Picker";
 export default class CondimentPickers extends Component {
   render() {
-    console.log(this.props.tacoIngredients);
     const {
       baseLayers,
       condiments,
@@ -12,22 +11,19 @@ export default class CondimentPickers extends Component {
       shells
     } = this.props.tacoIngredients;
     let ingredients = [baseLayers, condiments, mixins, seasonings, shells];
-    console.log(ingredients);
-    let keys = Object.keys(this.props.tacoIngredients);
-    console.log(keys);
-    for (let i in keys) {
-      if (keys[i] == "loading") {
-        keys.splice(i, 1);
-      }
-    }
-    let iterationNumber = 0;
-    console.log(keys);
+    let keys = ["Base Layers","Condiments","Mixins", "Seasonings", "Shells"]
     return (
-      <Fragment>
-        {ingredients.map((ingredientName, i) => (
-          <Picker ingredient={ingredientName} nameOfSection={keys[i++]} />
-        ))}
-      </Fragment>
+      <Wrapper>
+          {ingredients.map((ingredientName, i) => (
+            <Picker ingredient={ingredientName} nameOfSection={keys[i++]} />
+          ))}
+      </Wrapper>
     );
   }
 }
+
+let Wrapper = styled.div`
+    margin-left: 8%;
+    height: 100%;
+    width: 100%;
+`

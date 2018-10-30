@@ -1,14 +1,13 @@
-import React, {Component} from "react";
+import React, {Component, Fragment} from "react";
 import styled from "styled-components"
 import DisplayPanel from "./DisplayPanel"
 import CondimentPickers from "./CondimentPickers"
+
 class App extends Component{
     state = {
-        layers: [],
         mixins: [],
-        seasons: [],
         condiments: [],
-        shells: []
+        loading: true
     }
 
     async componentDidMount() {
@@ -24,17 +23,25 @@ class App extends Component{
           Promise.all(responses.map(res => res.json()))
         );
          const [baseLayers, mixins, seasonings, condiments, shells] = res;
-    
-         console.log(... res);
+         this.setState({baseLayers});
+         this.setState({mixins});
+         this.setState({seasonings});
+         this.setState({condiments});
+         this.setState({shells});   
+         this.setState({loading: false})
     }
     render() {
       return (
-        <div>
-            <DisplayPanel />
-            <SelectionPanel>
-                <CondimentPickers />
-            </SelectionPanel>
-        </div>
+          <Fragment>
+          {this.state.loading ? (
+              <LoadingIcon />
+          ):  <div>
+          <DisplayPanel />
+          <SelectionPanel>
+              <CondimentPickers tacoIngredients={this.state} />
+          </SelectionPanel>
+         </div>}
+       </Fragment>
       );
     }
 }
@@ -47,5 +54,26 @@ position: fixed;
 bottom:0;
 `
 
+const LoadingIcon = styled.div`
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border: 12px solid whitesmoke;
+  border-radius: 50%;
+  border-top: 12px solid hsl(0, 61%, 50%);
+  width: 100px;
+  height: 100px;
+  animation: spin 2s linear infinite;
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+`
 
 export default App;

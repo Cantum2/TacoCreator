@@ -8,7 +8,10 @@ export default class Picker extends Component {
     return (
       <Wrapper>
             {currentIngredient.map(item => (
-               {item}
+              <div>
+                <label for={item.name}>{item.name}</label>
+               <input type="checkbox" name={item.name}/>
+               </div>
             ))}
       </Wrapper>
     )
@@ -21,7 +24,9 @@ let Wrapper = styled.div`
     margin-right: 10px;
     margin-left: 10px;
     margin-top: 10px;
-    height: 20%;
+    height: 95%;
     float: left;
-    overflow-y: 10px;
+    overflow-y: scroll;
+    padding: 5px;
+    border-radius: 5px;
 `

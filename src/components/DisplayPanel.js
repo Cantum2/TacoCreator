@@ -1,12 +1,24 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
+import styled from "styled-components"
 
 export default class DisplayPanel extends Component {
   render() {
-    console.log(this.props.condiments + "From display panel")
+    console.log(this.props.currentTaco + "From display panel")
     return (
-      <div>
-        <p>{this.props.condiments}</p>
-      </div>
+      <Fragment>
+        {this.props.currentTaco.tacoHasItems ? (
+          <div>
+            <p>Condiments: {this.props.currentTaco.condimentsAdded}</p>
+            <p>Base layers: {this.props.currentTaco.baseLayersAdded}</p>
+            <p>Seasonings: {this.props.currentTaco.seasoningsAdded}</p>
+            <p>Mixins: {this.props.currentTaco.mixinsAdded}</p>
+            <p>Shells: {this.props.currentTaco.shellsAdded}</p>
+          </div>
+        ) :
+          <h1>Choose your taco!</h1>
+        }
+      </Fragment>
     )
   }
 }
+

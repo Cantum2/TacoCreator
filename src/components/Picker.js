@@ -14,18 +14,23 @@ export default class Picker extends Component {
     switch (group) {
       case "Base Layers":
         this.state.baseLayers.push(itemClicked);
+        this.setState({isDisabled: true})
         break;
       case "Condiments":
         this.state.condiments.push(itemClicked);
+        this.setState({isDisabled: true})
         break;
       case "Mixins":
         this.state.mixins.push(itemClicked);
+        this.setState({isDisabled: true})
         break;
       case "Seasonings":
         this.state.seasonings.push(itemClicked);
+        this.setState({isDisabled: true})
         break;
       case "Shells":
         this.state.shells.push(itemClicked);
+        this.setState({isDisabled: true})
         break;
       default:
         break;
@@ -45,7 +50,7 @@ export default class Picker extends Component {
         <h1>{nameOfIngredient}</h1>
         {currentIngredient.map(item => (
           <div>
-            <label htmlFor={item.name}>{item.name + nameOfIngredient}</label>
+            <label htmlFor={item.name}>{item.name}</label>
             <input type="checkbox" name={item.name + nameOfIngredient} disabled={this.state.isDisabled} onClick={() => this.itemChecked(item.name, nameOfIngredient)} />
           </div>
         ))}

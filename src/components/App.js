@@ -5,31 +5,44 @@ import CondimentPickers from "./CondimentPickers";
 
 class App extends Component {
   state = {
+    baseLayers: [],
+    condiments: [],
+    seasonings: [],
+    mixins:[],
+    shells:[],
     baseLayersAdded: [],
     condimentsAdded: [],
     mixinsAdded: [],
     seasoningsAdded: [],
     shellsAdded: [],
+    tacoHasItems: false,
     loading: true
   };
 
-  itemAdded = (itemToTaco, group) =>{
+  itemAdded = (itemToTaco, group) => {
+    let joined = [];
+    this.setState({tacoHasItems: true});  
     switch (group) {
       case "Base Layers":
-        this.state.baseLayersAdded.push(itemToTaco);
+        joined = this.state.baseLayersAdded.concat(itemToTaco);
+        this.setState({ baseLayersAdded: joined })
         break;
       case "Condiments":
-        this.state.condimentsAdded.push(itemToTaco);
+        joined = this.state.condimentsAdded.concat(itemToTaco);
+        this.setState({ condimentsAdded: joined })      
         break;
       case "Mixins":
-        this.state.mixinsAdded.push(itemToTaco);
-        break;
+        joined = this.state.mixinsAdded.concat(itemToTaco);
+        this.setState({ mixinsAdded: joined })       
+         break;
       case "Seasonings":
-        this.state.seasoningsAdded.push(itemToTaco);
+        joined = this.state.seasoningsAdded.concat(itemToTaco);
+        this.setState({ seasoningsAdded: joined })
         break;
       case "Shells":
-        this.state.shellsAdded.push(itemToTaco);
-        break;
+        joined = this.state.shellsAdded.concat(itemToTaco);
+        this.setState({ shellsAdded: joined })     
+         break;
       default:
         break;
     }
@@ -61,13 +74,15 @@ class App extends Component {
         {this.state.loading ? (
           <LoadingIcon />
         ) : (
-          <div>
-            <DisplayPanel currentTaco={this.state} />
-            <SelectionPanel>
-              <CondimentPickers tacoIngredients={this.state} tacoIng={this.itemAdded}/>
-            </SelectionPanel>
-          </div>
-        )}
+            <div>
+              <DisplayWrapper>
+                <DisplayPanel currentTaco={this.state} />
+              </DisplayWrapper>
+              <SelectionPanel>
+                <CondimentPickers tacoIngredients={this.state} tacoIng={this.itemAdded} />
+              </SelectionPanel>
+            </div>
+          )}
       </Fragment>
     );
   }
@@ -81,6 +96,13 @@ const SelectionPanel = styled.div`
   bottom: 0;
 `;
 
+const DisplayWrapper = styled.div`
+  background-color: LightSalmon;
+  height: 60%;
+  width: 100%;
+  position: fixed;
+  text-align: center;
+`;
 const LoadingIcon = styled.div`
   position: absolute;
   left: 50%;

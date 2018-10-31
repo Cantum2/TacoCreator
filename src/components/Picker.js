@@ -7,7 +7,7 @@ export default class Picker extends Component {
     condiments: [],
     mixins: [],
     seasonings: [],
-    shells: []
+    shells: [],
   }
 
   itemChecked = (itemClicked, group) => {
@@ -15,26 +15,32 @@ export default class Picker extends Component {
       case "Base Layers":
         this.state.baseLayers.push(itemClicked);
         this.setState({isDisabled: true})
+       
         break;
       case "Condiments":
         this.state.condiments.push(itemClicked);
         this.setState({isDisabled: true})
+       
         break;
       case "Mixins":
         this.state.mixins.push(itemClicked);
         this.setState({isDisabled: true})
+       
         break;
       case "Seasonings":
         this.state.seasonings.push(itemClicked);
         this.setState({isDisabled: true})
+       
         break;
       case "Shells":
         this.state.shells.push(itemClicked);
         this.setState({isDisabled: true})
+        
         break;
       default:
         break;
     }
+   
     console.log(this.state)
     console.log(itemClicked, group);
   this.props.dataPass(itemClicked, group)

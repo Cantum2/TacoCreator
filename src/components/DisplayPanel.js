@@ -13,6 +13,11 @@ export default class DisplayPanel extends Component {
             <p>Seasonings: {this.props.currentTaco.seasoningsAdded}</p>
             <p>Mixins: {this.props.currentTaco.mixinsAdded}</p>
             <p>Shells: {this.props.currentTaco.shellsAdded}</p>
+            {this.props.currentTaco.completeTaco ? (
+              <p>Taco Complete</p>
+            ): 
+            <p>Not Complete</p>
+            }
           </div>
         ) :
           <h1>Choose your taco!</h1>

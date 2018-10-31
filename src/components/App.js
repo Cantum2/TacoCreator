@@ -5,10 +5,35 @@ import CondimentPickers from "./CondimentPickers";
 
 class App extends Component {
   state = {
-    mixins: [],
-    condiments: [],
+    baseLayersAdded: [],
+    condimentsAdded: [],
+    mixinsAdded: [],
+    seasoningsAdded: [],
+    shellsAdded: [],
     loading: true
   };
+
+  itemAdded = (itemToTaco, group) =>{
+    switch (group) {
+      case "Base Layers":
+        this.state.baseLayersAdded.push(itemToTaco);
+        break;
+      case "Condiments":
+        this.state.condimentsAdded.push(itemToTaco);
+        break;
+      case "Mixins":
+        this.state.mixinsAdded.push(itemToTaco);
+        break;
+      case "Seasonings":
+        this.state.seasoningsAdded.push(itemToTaco);
+        break;
+      case "Shells":
+        this.state.shellsAdded.push(itemToTaco);
+        break;
+      default:
+        break;
+    }
+  }
 
   async componentDidMount() {
     const urls = [
@@ -37,9 +62,9 @@ class App extends Component {
           <LoadingIcon />
         ) : (
           <div>
-            <DisplayPanel />
+            <DisplayPanel currentTaco={this.state} />
             <SelectionPanel>
-              <CondimentPickers tacoIngredients={this.state} />
+              <CondimentPickers tacoIngredients={this.state} tacoIng={this.itemAdded}/>
             </SelectionPanel>
           </div>
         )}

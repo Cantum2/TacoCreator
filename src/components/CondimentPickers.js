@@ -2,6 +2,11 @@ import React, { Component, Fragment } from "react";
 import styled from "styled-components";
 import Picker from "./Picker";
 export default class CondimentPickers extends Component {
+  
+  itemAddedToTaco = (itemAdded, group) => {
+    this.props.tacoIng(itemAdded, group);
+  }
+
   render() {
     const {
       baseLayers,
@@ -15,7 +20,7 @@ export default class CondimentPickers extends Component {
     return (
       <Wrapper>
           {ingredients.map((ingredientName, i) => (
-            <Picker ingredient={ingredientName} nameOfSection={keys[i++]} />
+            <Picker ingredient={ingredientName} nameOfSection={keys[i++]} dataPass={this.itemAddedToTaco}/>
           ))}
       </Wrapper>
     );

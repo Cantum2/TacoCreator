@@ -15,55 +15,53 @@ class App extends Component {
     mixinsAdded: [],
     seasoningsAdded: [],
     shellsAdded: [],
+    currentTaco: [],
     tacoHasItems: false,
-    loading: true,
     hasBaseLayers: false,
     hasCondiments: false,
     hasSeasonings: false,
     hasShells: false,
     hasMixins: false,
-    completeTaco: false
+    completeTaco: false,
+    loading: true
   };
 
   itemAdded = (itemToTaco, group) => {
     let joined = [];
     this.setState({ tacoHasItems: true });
-    this.testIngredients();
+
     switch (group) {
       case "Base Layers":
         joined = this.state.baseLayersAdded.concat(itemToTaco);
-        this.setState({ baseLayersAdded: joined })
-        this.setState({ hasBaseLayers: true })
-        this.testIngredients();
+        this.setState({ baseLayersAdded: joined });
+        this.setState({ hasBaseLayers: true });
         break;
-        case "Condiments":
+      case "Condiments":
         joined = this.state.condimentsAdded.concat(itemToTaco);
-        this.setState({ condimentsAdded: joined })
-        this.setState({ hasCondiments: true })
-        this.testIngredients();
+        this.setState({ condimentsAdded: joined });
+        this.setState({ hasCondiments: true });
         break;
-        case "Mixins":
+      case "Mixins":
         joined = this.state.mixinsAdded.concat(itemToTaco);
-        this.setState({ mixinsAdded: joined })
-        this.setState({ hasMixins: true })
-        this.testIngredients();
+        this.setState({ mixinsAdded: joined });
+        this.setState({ hasMixins: true });
         break;
-        case "Seasonings":
+      case "Seasonings":
         joined = this.state.seasoningsAdded.concat(itemToTaco);
-        this.setState({ seasoningsAdded: joined })
-        this.setState({ hasSeasonings: true })
-        this.testIngredients();
+        this.setState({ hasSeasonings: true });
+        this.setState({ seasoningsAdded: joined });
         break;
-        case "Shells":
+      case "Shells":
         joined = this.state.shellsAdded.concat(itemToTaco);
-        this.setState({ shellsAdded: joined })
-        this.setState({ hasShells: true })
-        this.testIngredients();
+        this.setState({ shellsAdded: joined });
+        this.setState({ hasShells: true });
+        this.forceUpdate();
         break;
       default:
         break;
     }
-  }
+    console.log(this.state)
+  };
 
   async componentDidMount() {
     const urls = [
@@ -85,33 +83,39 @@ class App extends Component {
     this.setState({ shells });
     this.setState({ loading: false });
   }
-  testIngredients = () =>{
-    if (this.state.hasShells &&
+  testIngredients = () => {
+    if (
+      this.state.hasShells &&
       this.state.hasSeasonings &&
       this.state.hasMixins &&
       this.state.hasCondiments &&
-      this.state.hasBaseLayers) {
-      this.setState({ completeTaco: true })
-      console.log("Taco complete")
-    }else{
-      console.log("Taco not good")
+      this.state.hasBaseLayers
+    ) {
+      this.setState({ completeTaco: true });
+      console.log("Taco complete");
+    } else {
+      console.log("Taco not good");
     }
-  }
+  };
+
   render() {
     return (
       <Fragment>
         {this.state.loading ? (
           <LoadingIcon />
         ) : (
-            <div>
-              <DisplayWrapper>
-                <DisplayPanel currentTaco={this.state} />
-              </DisplayWrapper>
-              <SelectionPanel>
-                <CondimentPickers tacoIngredients={this.state} tacoIng={this.itemAdded} />
-              </SelectionPanel>
-            </div>
-          )}
+          <div>
+            <DisplayWrapper>
+              <DisplayPanel currentTaco={this.state} />
+            </DisplayWrapper>
+            <SelectionPanel>
+              <CondimentPickers
+                tacoIngredients={this.state}
+                tacoIng={this.itemAdded}
+              />
+            </SelectionPanel>
+          </div>
+        )}
       </Fragment>
     );
   }
@@ -132,6 +136,7 @@ const DisplayWrapper = styled.div`
   position: fixed;
   text-align: center;
 `;
+
 const LoadingIcon = styled.div`
   position: absolute;
   left: 50%;
@@ -141,5 +146,6 @@ const LoadingIcon = styled.div`
   background-image: url("../../Images/Tacos.gif");
   background-repeat: no-repeat;
 `;
+
 
 export default App;

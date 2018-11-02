@@ -102,7 +102,11 @@ class App extends Component {
     return (
       <Fragment>
         {this.state.loading ? (
-          <LoadingIcon />
+           <div>
+           <LoadingIcon>
+             <h1>Heating the meat...</h1>
+           </LoadingIcon>
+         </div>
         ) : (
           <div>
             <DisplayWrapper>
@@ -139,8 +143,8 @@ const DisplayWrapper = styled.div`
 
 const LoadingIcon = styled.div`
   position: absolute;
-  left: 50%;
-  top: 50%;
+  left: 45%;
+  top: 35;
   width: 300px;
   height: 300px;
   background-image: url("../../Images/Tacos.gif");

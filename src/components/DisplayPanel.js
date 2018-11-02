@@ -46,6 +46,14 @@ export default class DisplayPanel extends Component {
     console.log(this.state)
   }
 
+  clearTacos = () => {
+
+  }
+
+  showSaved = () =>{
+    
+  }
+
   render() {
     console.log(this.props.currentTaco + "From display panel")
     return (
@@ -67,8 +75,9 @@ export default class DisplayPanel extends Component {
                 </p>
                 <input type="text" placeholder="Name your beast!" onChange={nameOfTaco => this.nameTheTaco(nameOfTaco)}/>
                 <CuteButton onClick={this.saveTaco}>Save your taco!</CuteButton>
+                <CuteButton onClick={this.clearTacos}>Clear Taco!</CuteButton> 
                 {this.state.savedTacos.length > 0 ? (
-                  <ViewSavedTacos>Show Saved</ViewSavedTacos>  
+                  <ViewSavedTacos onClick={this.showSaved}>Show Saved</ViewSavedTacos>  
                 ) : 
                 <p></p>
               }

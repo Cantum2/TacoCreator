@@ -28,44 +28,40 @@ class App extends Component {
   itemAdded = (itemToTaco, group) => {
     let joined = [];
     this.setState({ tacoHasItems: true });
+    this.testIngredients();
     switch (group) {
       case "Base Layers":
         joined = this.state.baseLayersAdded.concat(itemToTaco);
         this.setState({ baseLayersAdded: joined })
         this.setState({ hasBaseLayers: true })
+        this.testIngredients();
         break;
-      case "Condiments":
+        case "Condiments":
         joined = this.state.condimentsAdded.concat(itemToTaco);
         this.setState({ condimentsAdded: joined })
         this.setState({ hasCondiments: true })
+        this.testIngredients();
         break;
-      case "Mixins":
+        case "Mixins":
         joined = this.state.mixinsAdded.concat(itemToTaco);
         this.setState({ mixinsAdded: joined })
         this.setState({ hasMixins: true })
+        this.testIngredients();
         break;
-      case "Seasonings":
+        case "Seasonings":
         joined = this.state.seasoningsAdded.concat(itemToTaco);
         this.setState({ seasoningsAdded: joined })
         this.setState({ hasSeasonings: true })
+        this.testIngredients();
         break;
-      case "Shells":
+        case "Shells":
         joined = this.state.shellsAdded.concat(itemToTaco);
         this.setState({ shellsAdded: joined })
         this.setState({ hasShells: true })
+        this.testIngredients();
         break;
       default:
         break;
-    }
-    if (this.state.hasShells &&
-      this.state.hasSeasonings &&
-      this.state.hasMixins &&
-      this.state.hasCondiments &&
-      this.state.hasBaseLayers) {
-      this.setState({ completeTaco: true })
-      console.log("Taco complete")
-    }else{
-      console.log("Taco not good")
     }
   }
 
@@ -88,6 +84,18 @@ class App extends Component {
     this.setState({ condiments });
     this.setState({ shells });
     this.setState({ loading: false });
+  }
+  testIngredients = () =>{
+    if (this.state.hasShells &&
+      this.state.hasSeasonings &&
+      this.state.hasMixins &&
+      this.state.hasCondiments &&
+      this.state.hasBaseLayers) {
+      this.setState({ completeTaco: true })
+      console.log("Taco complete")
+    }else{
+      console.log("Taco not good")
+    }
   }
   render() {
     return (

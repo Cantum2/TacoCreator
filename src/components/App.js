@@ -60,7 +60,6 @@ class App extends Component {
       default:
         break;
     }
-    console.log(this.state)
   };
 
   async componentDidMount() {

@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import styled from "styled-components";
-import "../App.css"; 
+import "../App.css";
 
 export default class DisplayPanel extends Component {
   state = {
@@ -13,7 +13,6 @@ export default class DisplayPanel extends Component {
 
   componentWillReceiveProps() {
     this.setState({ numberOfElements: this.state.numberOfElements + 1 });
-    console.log(this.state.numberOfElements);
   }
 
   saveTaco = () => {
@@ -56,32 +55,24 @@ export default class DisplayPanel extends Component {
     currentTaco.name = this.state.tacoName;
     let tacoArray = this.state.savedTacos.concat(currentTaco);
     this.setState({ savedTacos: tacoArray });
-    console.log(this.state.savedTacos);
   };
 
   nameTheTaco = tacoName => {
     this.setState({ tacoName: tacoName.target.value });
-    console.log(this.state);
   };
 
-  clearTacos = () => {
-
-  };
-
-  deleteTaco = (tacoToDelte) =>{
+  deleteTaco = tacoToDelte => {
     let savedTacos = this.state.savedTacos;
-
     let indexOfTaco = savedTacos.indexOf(tacoToDelte);
     savedTacos = savedTacos.splice(indexOfTaco, 1);
-    this.setState({savedTacos});
-  }
+    this.setState({ savedTacos });
+  };
 
   showSaved = () => {
     this.setState({ showTacos: true });
   };
 
   render() {
-    console.log(this.props.currentTaco + "From display panel");
     const {
       condimentsAdded,
       baseLayersAdded,
@@ -122,17 +113,17 @@ export default class DisplayPanel extends Component {
                 <strong>Shells: </strong> {shellsAdded}
               </p>
             )}
-            {this.state.numberOfElements == 5 ? (
+            {this.state.numberOfElements <= 8 && this.state.numberOfElements >= 5 ? (
               <SentenceWrapper>
                 <p>
                   Lets Taco 'bout the Taco you built! You created a monsterosity
                   of a taco with a base layer of some succulent{" "}
-                  {this.props.currentTaco.baseLayersAdded} on the bottom and{" "}
-                  {this.props.currentTaco.condimentsAdded} to solidify that
+                  {baseLayersAdded} on the bottom and{" "}
+                  {condimentsAdded.length > 1 ? condimentsAdded.map(condiment => (condiment + ", ")) : condimentsAdded} to solidify that
                   wonderful taste. You also mixed in some super tasty{" "}
-                  {this.props.currentTaco.mixinsAdded}. We cant forget the{" "}
-                  {this.props.currentTaco.seasoningsAdded} sprinkled on the top.
-                  All of this is on a warm {this.props.currentTaco.shellsAdded}.
+                  {mixinsAdded.length > 1 ? mixinsAdded.map(mixinsa => (mixinsa + ", ")) : mixinsAdded}. We cant forget the{" "}
+                  {seasoningsAdded} sprinkled on the top.
+                  All of this is on a warm {shellsAdded}.
                 </p>
                 <input
                   type="text"
@@ -140,13 +131,12 @@ export default class DisplayPanel extends Component {
                   onChange={nameOfTaco => this.nameTheTaco(nameOfTaco)}
                 />
                 <CuteButton onClick={this.saveTaco}>Save your taco!</CuteButton>
-                <CuteButton onClick={this.clearTacos}>Clear Taco!</CuteButton>
                 {this.state.savedTacos.length > 0 ? (
                   <ViewSavedTacos onClick={this.showSaved}>
                     Show Saved
                   </ViewSavedTacos>
                 ) : (
-                  <p></p>
+                  <p />
                 )}
                 {this.state.showTacos ? (
                   <TableBacker>
@@ -167,17 +157,24 @@ export default class DisplayPanel extends Component {
                           <tr>
                             <td>{tacos.name}</td>
                             <td>{tacos.baseLayersAdded[0]}</td>
-                            <td>{tacos.condimentsAdded[0]}</td>
+                            <td>{tacos.condimentsAdded.map(condiment => (condiment + ","))}</td>
                             <td>{tacos.mixinsAdded[0]}</td>
                             <td>{tacos.seasoningsAdded[0]}</td>
                             <td>{tacos.shellsAdded[0]}</td>
-                            <td><DeleteTaco onClick={() => this.deleteTaco(tacos)}>Delete</DeleteTaco></td>
+                            <td>
+                              <DeleteTaco
+                                onClick={() => this.deleteTaco(tacos)}
+                              >
+                                Delete
+                              </DeleteTaco>
+                            </td>
                           </tr>
                         ))}
                       </tbody>
                     </table>
                   </TableBacker>
-                ) : (<p></p>
+                ) : (
+                  <p />
                 )}
               </SentenceWrapper>
             ) : (
@@ -233,11 +230,10 @@ const SentenceWrapper = styled.div`
   text-align: center;
 `;
 
-
 const TableBacker = styled.div`
   height: 20%;
   width: 90%;
   margin-left: auto;
   margin-left: auto;
   overflow-y: scroll;
-`
+`;

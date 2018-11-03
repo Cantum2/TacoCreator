@@ -68,10 +68,7 @@ export default class Picker extends Component {
 let Wrapper = styled.div`
   background-color: gray;
   width: 15%;
-  margin-right: 10px;
-  margin-left: 10px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin:10px;
   height: 95%;
   float: left;
   overflow-y: scroll;

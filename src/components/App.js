@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import styled from "styled-components";
 import DisplayPanel from "./DisplayPanel";
 import CondimentPickers from "./CondimentPickers";
+import "../App.css"; 
 
 class App extends Component {
   state = {
@@ -55,7 +56,6 @@ class App extends Component {
         joined = this.state.shellsAdded.concat(itemToTaco);
         this.setState({ shellsAdded: joined });
         this.setState({ hasShells: true });
-        this.forceUpdate();
         break;
       default:
         break;
@@ -76,27 +76,9 @@ class App extends Component {
       Promise.all(responses.map(res => res.json()))
     );
     const [baseLayers, mixins, seasonings, condiments, shells] = res;
-    this.setState({ baseLayers });
-    this.setState({ mixins });
-    this.setState({ seasonings });
-    this.setState({ condiments });
-    this.setState({ shells });
+    this.setState({ baseLayers, mixins,  seasonings, condiments, shells});
     this.setState({ loading: false });
   }
-  testIngredients = () => {
-    if (
-      this.state.hasShells &&
-      this.state.hasSeasonings &&
-      this.state.hasMixins &&
-      this.state.hasCondiments &&
-      this.state.hasBaseLayers
-    ) {
-      this.setState({ completeTaco: true });
-      console.log("Taco complete");
-    } else {
-      console.log("Taco not good");
-    }
-  };
 
   render() {
     return (

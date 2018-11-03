@@ -1,0 +1,30 @@
+@import url("https://fonts.googleapis.com/css?family=Fira+Sans|Montserrat");
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Fira Sans", sans-serif;
+  background: whitesmoke;
+  color: white;
+}
+
+.savedTacoTable {
+    color: black;
+  border-collapse: collapse;
+}
+
+.savedTacoTable th,
+td {
+  border: 1px solid black;
+  padding: 5px;
+  text-align: left;
+}
+
+.savedTacoTable tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.savedTacoTable th {
+    background-color: palevioletred;
+    color: white;
+}

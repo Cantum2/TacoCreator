@@ -2,6 +2,9 @@ import React, { Component, Fragment } from "react";
 import styled from "styled-components";
 import DisplayPanel from "./DisplayPanel";
 import CondimentPickers from "./CondimentPickers";
+import { Provider } from "react-redux";
+import store from "../Store.js";
+
 import "../App.css"; 
 
 class App extends Component {
@@ -78,30 +81,31 @@ class App extends Component {
     this.setState({ baseLayers, mixins,  seasonings, condiments, shells});
     this.setState({ loading: false });
   }
-
   render() {
     return (
-      <Fragment>
-        {this.state.loading ? (
-           <div>
-           <LoadingIcon>
-             <h1>Heating the meat...</h1>
-           </LoadingIcon>
-         </div>
-        ) : (
-          <div>
-            <DisplayWrapper>
-              <DisplayPanel currentTaco={this.state} />
-            </DisplayWrapper>
-            <SelectionPanel>
-              <CondimentPickers
-                tacoIngredients={this.state}
-                tacoIng={this.itemAdded}
-              />
-            </SelectionPanel>
+      <Provider>
+        <Fragment store={store}>
+          {this.state.loading ? (
+            <div>
+            <LoadingIcon>
+              <h1>Heating the meat...</h1>
+            </LoadingIcon>
           </div>
-        )}
-      </Fragment>
+          ) : (
+            <div>
+              <DisplayWrapper>
+                <DisplayPanel currentTaco={this.state} />
+              </DisplayWrapper>
+              <SelectionPanel>
+                <CondimentPickers
+                  tacoIngredients={this.state}
+                  tacoIng={this.itemAdded}
+                />
+              </SelectionPanel>
+            </div>
+          )}
+        </Fragment>
+      </Provider>
     );
   }
 }

@@ -1,0 +1,1 @@
+export const FETCH_BASELAYERS = 'FETCH_BASELAYERS';

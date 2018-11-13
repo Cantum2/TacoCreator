@@ -4,6 +4,8 @@ import DisplayPanel from "./DisplayPanel";
 import CondimentPickers from "./CondimentPickers";
 import { Provider } from "react-redux";
 import store from "../Store.js";
+import {connect} from "react-redux";
+import { fetchBaselayers } from "../actions/fetchBaseLayers";
 
 import "../App.css"; 
 

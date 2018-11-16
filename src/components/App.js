@@ -5,7 +5,7 @@ import CondimentPickers from "./CondimentPickers";
 import { Provider } from "react-redux";
 import store from "../Store.js";
 import {connect} from "react-redux";
-import { fetchBaselayers } from "../actions/fetchBaseLayers";
+import { fetchBaseLayers } from "../actions/baselayerActions";
 
 import "../App.css"; 
 
@@ -67,9 +67,13 @@ class App extends Component {
     }
   };
 
+  componentWillMount(){
+    this.props.fetchBaseLayers();
+  }
+
   async componentDidMount() {
     const urls = [
-      "https://tacos-ocecwkpxeq.now.sh/baseLayers/",
+      // "https://tacos-ocecwkpxeq.now.sh/baseLayers/",
       "https://tacos-ocecwkpxeq.now.sh/mixins/",
       "https://tacos-ocecwkpxeq.now.sh/seasonings/",
       "https://tacos-ocecwkpxeq.now.sh/condiments/",
@@ -79,14 +83,14 @@ class App extends Component {
     const res = await Promise.all(urls.map(url => fetch(url))).then(responses =>
       Promise.all(responses.map(res => res.json()))
     );
-    const [baseLayers, mixins, seasonings, condiments, shells] = res;
-    this.setState({ baseLayers, mixins,  seasonings, condiments, shells});
+    const [mixins, seasonings, condiments, shells] = res;
+    this.setState({ mixins,  seasonings, condiments, shells});
     this.setState({ loading: false });
   }
   render() {
     return (
-      <Provider>
-        <Fragment store={store}>
+      <Provider store={store}>
+        <Fragment >
           {this.state.loading ? (
             <div>
             <LoadingIcon>
@@ -100,7 +104,7 @@ class App extends Component {
               </DisplayWrapper>
               <SelectionPanel>
                 <CondimentPickers
-                  tacoIngredients={this.state}
+                  tacoIngredients={this.props.baseLayers}
                   tacoIng={this.itemAdded}
                 />
               </SelectionPanel>
@@ -138,5 +142,8 @@ const LoadingIcon = styled.div`
   background-repeat: no-repeat;
 `;
 
+const mapStateToProps = state => ({
+  baseLayers: state.baseLayers.items
+})
 
-export default App;
+export default connect(null, {fetchBaseLayers})(App);
